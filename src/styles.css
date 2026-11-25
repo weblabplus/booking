@@ -1,0 +1,114 @@
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Space Grotesk', 'Helvetica Neue', sans-serif;
+  background-color: #0f042e;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.not-configured {
+  max-width: 34rem;
+  width: 100%;
+  background: #28213d;
+  border: 1px solid #374151;
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  color: #f5eaff;
+}
+
+.not-configured h1 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+}
+
+.not-configured p {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: #b1bcfd;
+}
+
+.not-configured code {
+  background: #0f042e;
+  color: #f6c800;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.375rem;
+  font-size: 0.9em;
+}
+
+.email-warning {
+  max-width: 40rem;
+  margin: 1rem 0 0;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: #28213d;
+  border: 1px solid #6b7280;
+  color: #f6c800;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.booking-loading {
+  color: #b1bcfd;
+  font-size: 0.95rem;
+}
+
+.owner-badge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: #28213d;
+  border: 1px solid #374151;
+}
+
+.owner-badge__label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+}
+
+.owner-badge__name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f6c800;
+}
+
+.booking-error {
+  max-width: 40rem;
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: #3b1d1d;
+  border: 1px solid #7f1d1d;
+  color: #fca5a5;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: center;
+}
