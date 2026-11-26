@@ -43,6 +43,10 @@ export async function fetchBookingLinkOwner(
     );
 
     if (response.status === 404) {
+      // Το API επιστρέφει JSON για άκυρο token. Αν επιστρέψει HTML (π.χ. το
+      // backend δεν έχει το endpoint ακόμα), δεν μπλοκάρουμε την κράτηση.
+      const isJson = (response.headers.get('content-type') || '').includes('application/json');
+      if (!isJson) return { valid: true, skipped: true };
       return { valid: false, error: 'Το link δεν είναι έγκυρο ή έχει ανακληθεί.' };
     }
     if (!response.ok) {
