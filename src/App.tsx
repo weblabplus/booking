@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { Flow } from '@hapio/hapio-booking-flow-react';
 import { buildConfig } from './config';
 import { BookingNotifier } from './BookingNotifier';
+import { PatientContactMemory } from './PatientContactMemory';
+import { PatientDataControls } from './PatientDataControls';
 import { fetchBookingLinkOwner } from './booking-link';
 import { getBookingRef } from './notify';
 import './styles.css';
@@ -13,6 +15,7 @@ function App() {
   const [emailFailed, setEmailFailed] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
   const [ownerName, setOwnerName] = useState<string | null>(null);
+  const [clinicName, setClinicName] = useState<string | null>(null);
   const [linkError, setLinkError] = useState<string | null>(null);
   const [checkingLink, setCheckingLink] = useState(true);
 
@@ -32,8 +35,9 @@ function App() {
       if (cancelled) return;
       if (!result.valid) {
         setLinkError(result.error || 'Το link δεν είναι έγκυρο.');
-      } else if (result.owner?.displayName) {
-        setOwnerName(result.owner.displayName);
+      } else {
+        if (result.owner?.displayName) setOwnerName(result.owner.displayName);
+        if (result.clinicName) setClinicName(result.clinicName);
       }
       setCheckingLink(false);
     });
@@ -84,11 +88,18 @@ function App() {
   return (
     <div className="app-shell">
       <BookingNotifier onResult={handleNotifyResult} onError={handleBookingError} />
-      {ownerName && (
-        <div className="owner-badge">
-          <span className="owner-badge__label">Ραντεβού με</span>
-          <span className="owner-badge__name">{ownerName}</span>
+      <PatientContactMemory />
+      {clinicName ? (
+        <div className="owner-badge owner-badge--unit">
+          <span className="owner-badge__name">{clinicName}</span>
         </div>
+      ) : (
+        ownerName && (
+          <div className="owner-badge">
+            <span className="owner-badge__label">Ραντεβού με</span>
+            <span className="owner-badge__name">{ownerName}</span>
+          </div>
+        )
       )}
       {bookingError && (
         <p className="booking-error" role="alert">
@@ -96,6 +107,7 @@ function App() {
         </p>
       )}
       <Flow config={config} />
+      <PatientDataControls />
       {emailFailed && (
         <p className="email-warning" role="status">
           Το ραντεβού καταχωρήθηκε, αλλά το email επιβεβαίωσης δεν στάλθηκε. Αν δεν το

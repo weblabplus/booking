@@ -100,6 +100,17 @@ body {
   color: #f6c800;
 }
 
+/* Όνομα μονάδας: μεγαλύτερο, ως τίτλος */
+.owner-badge--unit {
+  padding: 0.625rem 1.5rem;
+}
+
+.owner-badge--unit .owner-badge__name {
+  font-size: 1.0625rem;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
 .booking-error {
   max-width: 40rem;
   margin: 0 0 1rem;
@@ -111,4 +122,60 @@ body {
   font-size: 0.875rem;
   line-height: 1.5;
   text-align: center;
+}
+
+.patient-controls {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* Μέσα στη φόρμα του Hapio Flow: πιάνει όλο το πλάτος κάτω από τα πεδία. */
+.patient-controls--inline {
+  flex: 0 0 100%;
+  width: 100%;
+  margin: 0;
+  text-align: left;
+}
+
+.patient-controls__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  min-height: 44px; /* touch target σε κινητό */
+  padding: 0.5rem 0;
+  border: 0;
+  background: transparent;
+  color: #8e9ad4;
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 150ms;
+}
+
+.patient-controls__button:hover,
+.patient-controls__button:focus-visible {
+  color: #f6c800;
+  outline: none;
+}
+
+.patient-controls__button:active {
+  color: #d9b400;
+}
+
+.patient-controls__done {
+  margin: 0;
+  color: #b1bcfd;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+  .patient-controls__button {
+    font-size: 0.9375rem;
+  }
 }

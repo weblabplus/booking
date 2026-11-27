@@ -8,6 +8,8 @@ export interface BookingLinkLookup {
   /** true όταν το link επαληθεύτηκε επιτυχώς */
   valid: boolean;
   owner?: BookingLinkOwner;
+  /** Όνομα μονάδας/κλινικής από τη βάση του Medisend */
+  clinicName?: string;
   /** true όταν δεν υπάρχει ρυθμισμένο Medisend API (δεν μπορούμε να ελέγξουμε) */
   skipped?: boolean;
   error?: string;
@@ -56,13 +58,18 @@ export async function fetchBookingLinkOwner(
     const data = (await response.json()) as {
       valid?: boolean;
       owner?: BookingLinkOwner;
+      clinicName?: string;
     };
 
     if (data?.valid === false) {
       return { valid: false, error: 'Το link δεν είναι έγκυρο ή έχει ανακληθεί.' };
     }
 
-    return { valid: true, owner: data?.owner };
+    return {
+      valid: true,
+      owner: data?.owner,
+      clinicName: typeof data?.clinicName === 'string' ? data.clinicName : undefined,
+    };
   } catch {
     // Δίκτυο/CORS — δεν μπλοκάρουμε την κράτηση
     return { valid: true, skipped: true };

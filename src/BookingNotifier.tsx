@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { attributeBookingToOwner, getBookingRef, sendBookingNotification } from './notify';
+import { savePatientContact } from './patient-cookie';
 
 interface BookingNotifierProps {
   /** Καλείται όταν ολοκληρωθεί η προσπάθεια αποστολής email. */
@@ -71,6 +72,13 @@ export function BookingNotifier({ onResult, onError }: BookingNotifierProps) {
       }
 
       const metadata: Record<string, string> = booking.metadata || {};
+
+      // Αποθήκευση στοιχείων ώστε να μη τα ξαναπληκτρολογήσει την επόμενη φορά.
+      savePatientContact({
+        name: metadata.name,
+        email: metadata.email,
+        phone: metadata.phone,
+      });
 
       // Προέλευση: αν το link έχει ?ref=<token>, το ραντεβού ανήκει σε εκείνον τον χρήστη.
       const ref = getBookingRef();

@@ -12,6 +12,11 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
+    // Ρητό (κενό) PostCSS config: η εφαρμογή δεν χρησιμοποιεί PostCSS/Tailwind
+    // και έτσι δεν ψάχνει config σε γονικούς φακέλους (π.χ. medilab/package.json).
+    css: {
+      postcss: { plugins: [] },
+    },
     plugins: [
       react(),
       {
